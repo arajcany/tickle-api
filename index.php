@@ -52,6 +52,10 @@ if ($response instanceof Image) {
     $mimeType = $response->mime();
     header('Content-type: ', $mimeType);
     echo $response;
+} elseif (is_array($response)) {
+    header('Content-type: text/plain');
+    http_response_code($response['code']);
+    echo $response['message'] . ": " . $response['description'];
 } else {
     echo $response;
 }

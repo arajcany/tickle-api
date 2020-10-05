@@ -21,10 +21,12 @@ class DeliverGiggles
         $url = trim($url, '/');
         $url = explode("/", $url);
 
-        $fileAndExt = array_pop($url);
+        $lastUrlPart = array_pop($url);
+        $fileAndExt = pathinfo($lastUrlPart);
 
-        $fileAndExt = pathinfo($fileAndExt);
-
+        $statusCodes = file_get_contents(DATA . 'httpStatusCodes.json');
+        $statusCodes = json_decode($statusCodes, JSON_OBJECT_AS_ARRAY);
+        //print_r($statusCodes);
 
         if (isset($fileAndExt['filename']) && isset($fileAndExt['extension'])) {
 
@@ -44,7 +46,7 @@ class DeliverGiggles
             $types = ['json'];
             if (in_array($fileAndExt['extension'], $types)) {
                 $data = file_get_contents(DATA . 'css_colours.json');
-                $data = json_decode(json_encode($data), JSON_OBJECT_AS_ARRAY);
+                $data = json_encode(json_decode($data, JSON_OBJECT_AS_ARRAY), JSON_PRETTY_PRINT);
                 return $data;
             }
 
@@ -55,6 +57,10 @@ class DeliverGiggles
                 return $imaging->getImageResource();
             }
 
+        } elseif (isset($statusCodes[$lastUrlPart]) && is_numeric($lastUrlPart)) {
+            $return = $statusCodes[$lastUrlPart];
+            $return['code'] = $lastUrlPart;
+            return $return;
         } else {
             return file_get_contents(DATA . 'sample.html');
         }
