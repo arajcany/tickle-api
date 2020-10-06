@@ -4,6 +4,8 @@
 namespace App;
 
 use App\Utility\Imaging\ArtifactImaging;
+use Cake\Database\Connection;
+use Cake\Database\Driver\Sqlite;
 
 /**
  * Class DeliverGiggles
@@ -55,6 +57,12 @@ class DeliverGiggles
             if (in_array($fileAndExt['extension'], $types)) {
                 $imaging = new ArtifactImaging();
                 return $imaging->getImageResource();
+            }
+
+            //sql
+            $types = ['sql', 'sqlite'];
+            if (in_array($fileAndExt['extension'], $types)) {
+                return 'sql';
             }
 
         } elseif (isset($statusCodes[$lastUrlPart]) && is_numeric($lastUrlPart)) {
