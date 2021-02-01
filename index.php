@@ -52,7 +52,7 @@ if ($response instanceof Image) {
     $mimeType = $response->mime();
     header('Content-type: ', $mimeType);
     echo $response;
-} elseif ($response = 'sql') {
+} elseif ($response == 'sql') {
     $statement = $connection->execute('SELECT * FROM tickles order by id desc limit 25;');
     $rows = $statement->fetchAll('assoc');
     $data = [];
@@ -60,6 +60,7 @@ if ($response instanceof Image) {
         $url = json_decode($row['url'], JSON_OBJECT_AS_ARRAY);
         $data[] = $url['created'] . " " . $url['url'];
     }
+    header('Content-Type: text/plain');
     echo implode("\r\n", $data);
 } elseif (is_array($response)) {
     header('Content-type: text/plain');

@@ -35,12 +35,21 @@ class DeliverGiggles
             //html
             $types = ['html', 'htm'];
             if (in_array($fileAndExt['extension'], $types)) {
+                header('Content-type: text/html');
                 return file_get_contents(DATA . 'sample.html');
+            }
+
+            //xml
+            $types = ['xml'];
+            if (in_array($fileAndExt['extension'], $types)) {
+                header('Content-type: text/xml');
+                return file_get_contents(DATA . 'sample.xml');
             }
 
             //txt
             $types = ['text', 'txt'];
             if (in_array($fileAndExt['extension'], $types)) {
+                header('Content-type: text/plain');
                 return file_get_contents(DATA . 'sample.txt');
             }
 
@@ -49,6 +58,7 @@ class DeliverGiggles
             if (in_array($fileAndExt['extension'], $types)) {
                 $data = file_get_contents(DATA . 'css_colours.json');
                 $data = json_encode(json_decode($data, JSON_OBJECT_AS_ARRAY), JSON_PRETTY_PRINT);
+                header('Content-type: text/json');
                 return $data;
             }
 

@@ -1,0 +1,10 @@
+<root>
+    <foos>
+        <foo>Foo 1</foo>
+        <foo>Foo 2</foo>
+    </foos>
+    <bars>
+        <bar>Bar 1</bar>
+        <bar>Bar 2</bar>
+    </bars>
+</root>

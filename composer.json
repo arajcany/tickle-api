@@ -1,6 +1,6 @@
 {
   "name": "arajcany/tickle-api",
-  "description": "Serve and manage images from blob storage",
+  "description": "Accept any URL. Allows for testing of API calls without actual access to the API.",
   "type": "project",
   "license": "MIT",
   "require": {
